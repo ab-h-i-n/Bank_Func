@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Bank</title>
+</head>
+<body class="bg-slate-900 py-5 px-10 h-screen">
+
+    
+
+    <!-- heading  -->
+
+    <header class="py-5 px-2 mb-10" >
+
+        <!-- main heading  -->
+
+        <h1 class="font-bold text-slate-100 text-5xl text-center cursor-pointer " >Welcome to Bank</h1>
+
+    </header>
+
+    <div class="grid w-full place-items-center">
+
+        <!-- sub heading  -->
+
+    <div class="flex justify-between items-center gap-x-10 w-[700px]">
+        <div class="h-px w-full bg-slate-700"></div>
+        <p class="font-medium text-slate-700 whitespace-nowrap">Select options</p>
+        <div class="h-px w-full bg-slate-700"></div>
+    </div>
+
+    <!-- buttons  -->
+
+    <div class="flex justify-center gap-x-5 mt-5">
+        <button onclick="createUserAccount()" class="create-btn py-2 px-3 bg-slate-800 text-white border border-slate-700 rounded-lg font-medium  hover:bg-sky-600 hover:text-slate-900 " >Create Account</button>
+        <button onclick="deposit()" class="py-2 px-3 bg-slate-800 text-white border border-slate-700 rounded-lg font-medium  hover:bg-sky-600 hover:text-slate-900 " >Deposit</button>
+        <button onclick="withdraw()" class="py-2 px-3 bg-slate-800 text-white border border-slate-700 rounded-lg font-medium hover:bg-sky-600 hover:text-slate-900 " >Withdraw</button>
+        <button onclick="viewBalance()" class="py-2 px-3 bg-slate-800 text-white border border-slate-700 rounded-lg font-medium hover:bg-sky-600 hover:text-slate-900 " >View Balance</button>
+        <button onclick="getAccountDetails()" class="py-2 px-3 bg-slate-800 text-white border border-slate-700 rounded-lg font-medium hover:bg-sky-600 hover:text-slate-900 " >Account Details</button>
+    </div>
+
+    </div>
+    
+    <script src="./script.js"></script>
+</body>
+</html>
