@@ -24,19 +24,19 @@ var bankAccounts =
 
 function createUserAccount() {
 
-    bankAccounts.usrName = window.prompt("Enter the username ");
-    bankAccounts.usrPass = window.prompt("Enter the password ");
-    bankAccounts.name = window.prompt("Enter the name of the user ");
-    bankAccounts.acccountNo = window.prompt("Enter the account number ");
-    bankAccounts.ifcCode = window.prompt("Enter the ifc code ");
-    bankAccounts.branchName = window.prompt("Enter the branch name ");
+
+    bankAccounts.usrName = document.getElementById('usrName').value;
+    bankAccounts.usrPass = document.getElementById('usrPass').value;
+    bankAccounts.name = document.getElementById('Name').value;
+    bankAccounts.acccountNo = document.getElementById('AccNo').value;
+    bankAccounts.ifcCode = document.getElementById('ifcCode').value;
+    bankAccounts.branchName = document.getElementById('branchName').value;
+    bankAccounts.usrAddress.houseName = document.getElementById('houseName').value;
+    bankAccounts.usrAddress.place = document.getElementById('place').value;
+    bankAccounts.usrAddress.postOffice = document.getElementById('postOf').value;
+    bankAccounts.usrAddress.pinCode = document.getElementById('pinCode').value.toString();
     bankAccounts.balanceAmount = "0";
-    bankAccounts.usrAddress.houseName = window.prompt("Enter the house name ");
-    bankAccounts.usrAddress.place = window.prompt("Enter the place ");
-    bankAccounts.usrAddress.postOffice = window.prompt("Enter the postOffice ");
-    bankAccounts.usrAddress.pinCode = window.prompt("Enter the pin code ");
-    
-    
+ 
     console.log(bankAccounts);
     localStorage.setItem("CurrentUser", JSON.stringify(bankAccounts));
     checkUserCreated();
@@ -46,37 +46,36 @@ checkUserCreated();
 
 function checkUserCreated(){
 
-    if( JSON.parse(localStorage.getItem("CurrentUser"))){
+    var storedUser = JSON.parse(localStorage.getItem("CurrentUser"));
+
+    if(storedUser){
+
         console.log("User created!");
+        bankAccounts = storedUser;
         bankAccounts.usrLoggedIn = true;
-        document.querySelector('.create-btn').classList.add('hidden');
-    }else{
 
-        const buttons = document.querySelectorAll('.fuct-btn');
+        //unhide all buttons
 
-        console.log(buttons);
+        const buttons = document.querySelector('.buttons');
+
+        buttons.classList.remove('hidden');
+
+        document.getElementById('create-form').classList.add('hidden');
         
-        buttons.forEach((btn)=>{
-            btn.setAttribute('disabled', 'disabled');
-            
-            if( btn.setAttribute('disabled', 'disabled') ){
-                btn.classList.add('disabled:opacity-75');
-                btn.classList.remove('hover:bg-sky-600');
-                btn.classList.remove('hover:text-slate-900');
-                btn.classList.add('cursor-not-allowed');
-            }
-        })
+        //hide create account button
+
+        document.querySelector('.create-btn').classList.add('hidden');
+
+        //unhide delete account button 
+
+        document.querySelector('.delete-btn').classList.remove('hidden');
+
+        
     }
-    
 }
 
 
-function getAccountDetails() {
 
-
-    console.log(bankAccounts);
-
-}
 
 function getNewTransactionObject(newAmount, tranMethod) {
 
@@ -94,9 +93,70 @@ function getNewTransactionObject(newAmount, tranMethod) {
     return newTransaction;
 }
 
+function hideAllFuncForm(){
+
+    const funForms = document.querySelectorAll('.func-form');
+
+    funForms.forEach((form)=>{
+
+        if(!form.classList.contains('hidden')){
+            form.classList.add('hidden');
+        }
+
+    });
+}
+
+function showDeposit(){
+
+    hideAllFuncForm();
+
+    document.getElementById('deposit-form').classList.remove('hidden');
+
+}
+
+function showWithdraw(){
+
+    hideAllFuncForm();
+
+    document.getElementById('withdraw-form').classList.remove('hidden');
+
+}
+
+function viewBalance() {
+
+    hideAllFuncForm();
+
+    document.querySelector('.balAmount').innerText = bankAccounts.balanceAmount;
+    document.getElementById('view-bal').classList.remove('hidden');
+    
+}
+
+function getAccountDetails() {
+
+    console.log(bankAccounts);
+
+    hideAllFuncForm();
+    document.getElementById('view-details').classList.remove('hidden');
+
+
+
+    document.getElementById('usrNameText').value = bankAccounts.usrName; 
+    document.getElementById('NameText').value = bankAccounts.name 
+    document.getElementById('AccNoText').value = bankAccounts.acccountNo 
+    document.getElementById('ifcCodeText').value = bankAccounts.ifcCode 
+    document.getElementById('branchNameText').value = bankAccounts.branchName  
+    document.getElementById('houseNameText').value = bankAccounts.usrAddress.houseName 
+    document.getElementById('placeText').value = bankAccounts.usrAddress.place
+    document.getElementById('postOfText').value = bankAccounts.usrAddress.postOffice 
+    document.getElementById('pinCodeText').value = bankAccounts.usrAddress.pinCode 
+
+
+}
+
+
 function deposit() {
 
-    let Depamount = window.prompt("Enter the amount to deposit");
+    let Depamount = document.getElementById('depAmount').value;
 
     let numBalance = Number(bankAccounts.balanceAmount);
 
@@ -108,13 +168,17 @@ function deposit() {
 
     bankAccounts.transactionHistory.push(newTransaction);
 
-    localStorage.setItem("UserDetails", JSON.stringify(bankAccounts));
+    localStorage.setItem("CurrentUser", JSON.stringify(bankAccounts));
+
+    const createForm = document.getElementById('deposit-form');
+
+    console.log(`${Depamount} deposited`);
 
 }
 
 function withdraw() {
 
-    let Withamount = window.prompt("Enter the amount to withdraw");
+    let Withamount = document.getElementById('withAmount').value;
 
     let numBalance = Number(bankAccounts.balanceAmount);
 
@@ -132,11 +196,14 @@ function withdraw() {
 
     bankAccounts.transactionHistory.push(newTransaction);
 
-    localStorage.setItem("UserDetails", JSON.stringify(bankAccounts));
+    localStorage.setItem("CurrentUser", JSON.stringify(bankAccounts));
+    
+
+    console.log(`${Withamount} withdrawed`);
 }
 
-function viewBalance() {
+function DeleteUserAccount(){
 
-    window.alert((bankAccounts.balanceAmount));
-    
+    localStorage.clear();
+    window.location.reload()
 }
