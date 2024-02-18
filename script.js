@@ -170,9 +170,7 @@ function deposit() {
 
     localStorage.setItem("CurrentUser", JSON.stringify(bankAccounts));
 
-    const createForm = document.getElementById('deposit-form');
-
-    console.log(`${Depamount} deposited`);
+    window.alert(`${Depamount} deposited`);
 
 }
 
