@@ -173,28 +173,29 @@ function withdraw() {
 
     if (numBalance < Withamount) {
         window.alert('Insufficient balance. Re-Enter the value')
+    } else {
+
+        numBalance -= Number(Withamount)
+
+        bankAccounts.balanceAmount = numBalance.toString()
+
+        // creating new object
+        let newTransaction = getNewTransactionObject(Withamount, 'withdraw')
+
+        // add new transactionHistory
+
+        bankAccounts.transactionHistory.push(newTransaction)
+
+        // update local storage
+
+        localStorage.setItem('CurrentUser', JSON.stringify(bankAccounts))
+
+        // clear input value after clicking
+
+
+        window.alert(`${Withamount} withdrawed`)
     }
-
-    numBalance -= Number(Withamount)
-
-    bankAccounts.balanceAmount = numBalance.toString()
-
-    // creating new object
-    let newTransaction = getNewTransactionObject(Withamount, 'withdraw')
-
-    // add new transactionHistory
-
-    bankAccounts.transactionHistory.push(newTransaction)
-
-    // update local storage
-
-    localStorage.setItem('CurrentUser', JSON.stringify(bankAccounts))
-
-    // clear input value after clicking
-
     document.getElementById('withAmount').value = ''
-
-    window.alert(`${Withamount} withdrawed`)
 }
 
 function DeleteUserAccount() {
