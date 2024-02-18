@@ -1,3 +1,5 @@
+
+// Bank accounts object with user information
 var bankAccounts = 
     {
         usrLoggedIn: false,
@@ -21,10 +23,10 @@ var bankAccounts =
     }
 
     
-
+// User creation function
 function createUserAccount() {
 
-
+     // Retrieve user input and store it in the bankAccounts object
     bankAccounts.usrName = document.getElementById('usrName').value;
     bankAccounts.usrPass = document.getElementById('usrPass').value;
     bankAccounts.name = document.getElementById('Name').value;
@@ -38,12 +40,15 @@ function createUserAccount() {
     bankAccounts.balanceAmount = "0";
  
     console.log(bankAccounts);
+    // Save user details to localStorage
     localStorage.setItem("CurrentUser", JSON.stringify(bankAccounts));
+    // Check if user is created and update UI
     checkUserCreated();
 }
 
 checkUserCreated();
 
+// Function to check if a user is already created
 function checkUserCreated(){
 
     var storedUser = JSON.parse(localStorage.getItem("CurrentUser"));
@@ -53,6 +58,8 @@ function checkUserCreated(){
         console.log("User created!");
         bankAccounts = storedUser;
         bankAccounts.usrLoggedIn = true;
+
+        // Show relevant UI elements
 
         //unhide all buttons
 
@@ -76,7 +83,7 @@ function checkUserCreated(){
 
 
 
-
+// Function to create a new transaction object
 function getNewTransactionObject(newAmount, tranMethod) {
 
     const date = new Date;
@@ -93,6 +100,7 @@ function getNewTransactionObject(newAmount, tranMethod) {
     return newTransaction;
 }
 
+// Function to hide all functional forms
 function hideAllFuncForm(){
 
     const funForms = document.querySelectorAll('.func-form');
@@ -106,6 +114,7 @@ function hideAllFuncForm(){
     });
 }
 
+// Functions to show specific functional forms
 function showDeposit(){
 
     hideAllFuncForm();
@@ -139,7 +148,7 @@ function getAccountDetails() {
     document.getElementById('view-details').classList.remove('hidden');
 
 
-
+     // Update form fields with user account details
     document.getElementById('usrNameText').value = bankAccounts.usrName; 
     document.getElementById('NameText').value = bankAccounts.name 
     document.getElementById('AccNoText').value = bankAccounts.acccountNo 
@@ -153,7 +162,7 @@ function getAccountDetails() {
 
 }
 
-
+// Deposit function
 function deposit() {
 
     let Depamount = document.getElementById('depAmount').value;
@@ -164,16 +173,24 @@ function deposit() {
 
     bankAccounts.balanceAmount = numBalance.toString();
 
+      // creating new object 
     let newTransaction = getNewTransactionObject(Depamount, 'deposit');
 
+    
+    // add new transactionHistory 
     bankAccounts.transactionHistory.push(newTransaction);
 
+        // update local storage 
     localStorage.setItem("CurrentUser", JSON.stringify(bankAccounts));
+
+        // clear input value after clicking 
+    document.getElementById('depAmount').value = '';
 
     window.alert(`${Depamount} deposited`);
 
 }
 
+// Withdraw function
 function withdraw() {
 
     let Withamount = document.getElementById('withAmount').value;
@@ -183,25 +200,40 @@ function withdraw() {
     if (numBalance < Withamount) {
 
         window.alert("Insufficient balance. Re-Enter the value");
-        withdraw();
     }
 
     numBalance -= Number(Withamount);
 
     bankAccounts.balanceAmount = numBalance.toString();
 
+    
+    // creating new object 
     let newTransaction = getNewTransactionObject(Withamount, 'withdraw');
+
+    // add new transactionHistory 
 
     bankAccounts.transactionHistory.push(newTransaction);
 
-    localStorage.setItem("CurrentUser", JSON.stringify(bankAccounts));
-    
+    // update local storage 
 
-    console.log(`${Withamount} withdrawed`);
+    localStorage.setItem("CurrentUser", JSON.stringify(bankAccounts));
+
+    // clear input value after clicking 
+
+    document.getElementById('withAmount').value = '';
+
+
+
+    window.alert(`${Withamount} withdrawed`);
 }
 
 function DeleteUserAccount(){
 
+    // clear local storage 
+
     localStorage.clear();
+
+    // reload window 
+
     window.location.reload()
 }
