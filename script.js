@@ -120,6 +120,14 @@ function viewBalance() {
     document.getElementById('view-bal').classList.remove('hidden')
 }
 
+function showTransactionHistory(){
+
+    hideAllFuncForm()
+
+    document.getElementById('transaction-hist').classList.remove('hidden')
+
+}
+
 function getAccountDetails() {
     console.log(bankAccounts)
 
