@@ -21,7 +21,6 @@ var bankAccounts =
     }
 
     
-    localStorage.setItem("CurrentUser", JSON.stringify(bankAccounts));
 
 function createUserAccount() {
 
@@ -36,16 +35,41 @@ function createUserAccount() {
     bankAccounts.usrAddress.place = window.prompt("Enter the place ");
     bankAccounts.usrAddress.postOffice = window.prompt("Enter the postOffice ");
     bankAccounts.usrAddress.pinCode = window.prompt("Enter the pin code ");
-    bankAccounts.usrLoggedIn = true;
+    
     
     console.log(bankAccounts);
     localStorage.setItem("CurrentUser", JSON.stringify(bankAccounts));
-
-    document.querySelector('.create-btn').classList.add('hidden');
-
+    checkUserCreated();
 }
 
-bankAccounts = JSON.parse(localStorage.getItem("CurrentUser"));
+checkUserCreated();
+
+function checkUserCreated(){
+
+    if( JSON.parse(localStorage.getItem("CurrentUser"))){
+        console.log("User created!");
+        bankAccounts.usrLoggedIn = true;
+        document.querySelector('.create-btn').classList.add('hidden');
+    }else{
+
+        const buttons = document.querySelectorAll('.fuct-btn');
+
+        console.log(buttons);
+        
+        buttons.forEach((btn)=>{
+            btn.setAttribute('disabled', 'disabled');
+            
+            if( btn.setAttribute('disabled', 'disabled') ){
+                btn.classList.add('disabled:opacity-75');
+                btn.classList.remove('hover:bg-sky-600');
+                btn.classList.remove('hover:text-slate-900');
+                btn.classList.add('cursor-not-allowed');
+            }
+        })
+    }
+    
+}
+
 
 function getAccountDetails() {
 
@@ -114,5 +138,5 @@ function withdraw() {
 function viewBalance() {
 
     window.alert((bankAccounts.balanceAmount));
+    
 }
-
