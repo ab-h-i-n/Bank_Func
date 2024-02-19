@@ -50,7 +50,7 @@
 
                     <!-- buttons  -->
 
-                    <div class="grid grid-cols-2 gap-5  mt-5 md:flex md:justify-center md:gap-x-5">
+                    <div class="grid grid-cols-2 gap-5  mt-5 md:flex md:justify-center md:gap-x-5 ">
                         <button onclick="showDeposit()"
                             class="py-5 px-3 bg-slate-800 text-white border border-slate-700 rounded-lg font-medium  hover:bg-sky-600 hover:text-slate-900">Deposit</button>
                         <button onclick="showWithdraw()"
@@ -73,7 +73,7 @@
 
             <!-- create form -->
 
-            <div id="create-form">
+            <div id="create-form" onsubmit="createUserAccount()">
 
                 <!-- sub heading  -->
 
@@ -186,7 +186,7 @@
                     <!-- create user button  -->
 
                     <div class="flex justify-center mt-5">
-                        <button type="submit" onclick="createUserAccount()"
+                        <button type="submit"
                             class="create-btn py-2 px-3 bg-slate-800 text-white border border-slate-700 rounded-lg font-medium  hover:bg-sky-600 hover:text-slate-900 ">Create
                             Account</button>
                     </div>
@@ -199,11 +199,11 @@
 
             <!-- deposit form  -->
 
-            <div id="deposit-form" class="func-form  hidden">
+            <div id="deposit-form" class="func-form flex flex-col items-center hidden">
 
                 <!-- sub heading  -->
 
-                <div class="flex justify-between items-center gap-x-10 my-5">
+                <div class="flex justify-between items-center gap-x-10 my-5 w-full">
                     <div class="h-px w-full bg-slate-700"></div>
                     <p class="font-medium text-slate-700 whitespace-nowrap">Deposit</p>
                     <div class="h-px w-full bg-slate-700"></div>
@@ -211,7 +211,7 @@
 
                 <!-- deposit amount form  -->
 
-                <form action="#">
+                <form action="#" onsubmit="deposit()" class="max-w-[600px]">
 
                     <!-- amount input  -->
 
@@ -222,7 +222,7 @@
                     <!-- submit button  -->
 
                     <div class="flex justify-center mt-5">
-                        <button type="submit" onclick="deposit()"
+                        <button type="submit"
                             class="create-btn py-2 px-3 bg-slate-800 text-white border border-slate-700 rounded-lg font-medium  hover:bg-sky-600 hover:text-slate-900 ">Deposit</button>
                     </div>
 
@@ -232,11 +232,11 @@
 
             <!-- withdraw form  -->
 
-            <div id="withdraw-form" class="func-form hidden">
+            <div id="withdraw-form" class="func-form hidden flex flex-col items-center">
 
                 <!-- sub heading  -->
 
-                <div class="flex justify-between items-center gap-x-10 my-5">
+                <div class="flex justify-between items-center gap-x-10 my-5 w-full">
                     <div class="h-px w-full bg-slate-700"></div>
                     <p class="font-medium text-slate-700 whitespace-nowrap">Withdraw</p>
                     <div class="h-px w-full bg-slate-700"></div>
@@ -244,7 +244,7 @@
 
                 <!-- withdraw amount form  -->
 
-                <form action="#">
+                <form action="#" onsubmit="withdraw()">
 
                     <!-- amount input  -->
 
@@ -255,7 +255,7 @@
                     <!-- submit button  -->
 
                     <div class="flex justify-center mt-5">
-                        <button type="submit" onclick="withdraw()"
+                        <button type="submit"
                             class="create-btn py-2 px-3 bg-slate-800 text-white border border-slate-700 rounded-lg font-medium  hover:bg-sky-600 hover:text-slate-900 ">Withdraw</button>
                     </div>
 
@@ -434,27 +434,37 @@
 
             </div>
 
-                        <!-- transaction history  -->
+            <!-- transaction history  -->
 
-                        <div id="transaction-hist" class="func-form hidden">
+            <div id="transaction-hist" class="func-form hidden">
 
-                            <!-- sub heading  -->
-            
-                            <div class="flex justify-between items-center gap-x-10 my-5">
-                                <div class="h-px w-full bg-slate-700"></div>
-                                <p class="font-medium text-slate-700 whitespace-nowrap">Transaction History</p>
-                                <div class="h-px w-full bg-slate-700"></div>
-                            </div>
-            
-                            <p class="text-sm font-bold text-center text-red-500">Will be added later!</p>
-            
-                        </div>
+                <!-- sub heading  -->
+
+                <div class="flex justify-between items-center gap-x-10 my-5">
+                    <div class="h-px w-full bg-slate-700"></div>
+                    <p class="font-medium text-slate-700 whitespace-nowrap">Transaction History</p>
+                    <div class="h-px w-full bg-slate-700"></div>
+                </div>
+
+                <!-- no transaction text  -->
+
+                <p class="no-transac-text text-xs font-bold text-center text-slate-500 hidden">No transactions yet!</p>
+
+                <!-- transactions  -->
+
+                <div class="transactions-container grid gap-y-3">
+
+                    <!-- new transaction will be added using javascript  -->
+
+                </div>
+
+
+
+            </div>
 
         </div>
 
     </main>
-
-
 
     <script src="./script.js"></script>
 </body>

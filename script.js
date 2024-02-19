@@ -80,7 +80,7 @@ function getNewTransactionObject(newAmount, tranMethod) {
     const newTransaction = {
         dateTime: {
             date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
-            time: `${date.getFullYear()}`
+            time: `${date.getHours()}:${date.getMinutes()}`
         },
         method: tranMethod,
         amount: newAmount
@@ -120,11 +120,89 @@ function viewBalance() {
     document.getElementById('view-bal').classList.remove('hidden')
 }
 
-function showTransactionHistory(){
+
+function showTransactionHistory() {
 
     hideAllFuncForm()
 
     document.getElementById('transaction-hist').classList.remove('hidden')
+
+    if (bankAccounts.transactionHistory.length == 0) {
+
+        document.querySelector('.no-transac-text').classList.remove('hidden');
+
+    } else {
+
+        document.querySelector('.no-transac-text').classList.add('hidden');
+
+        document.querySelector('.transactions-container').innerHTML = '';
+
+        const transactions = bankAccounts.transactionHistory.slice().reverse().map((transaction) => {
+
+            console.log(transaction);
+
+            let newTransaction = document.createElement('div');
+
+            newTransaction.classList.add('flex');
+            newTransaction.classList.add('justify-center');
+
+            const color = (transaction.method == "deposit") ? "green-600" : "red-600";
+
+            newTransaction.innerHTML = `
+
+            <div
+                    class="bg-slate-800 w-full h-30 py-2 px-3 rounded-xl border-r-8 border-${color} flex items-center justify-between max-w-[600px]">
+
+                    <div class="flex items-center gap-x-5">
+
+                        <!-- svg-->
+
+                        <div class="grid place-content-center bg-${color} w-10 h-10 rounded-full">
+
+                            <svg class="w-7 stroke-current text-slate-200 " viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="9" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path
+                                    d="M14.5 9.08333L14.3563 8.96356C13.9968 8.66403 13.5438 8.5 13.0759 8.5H10.75C9.7835 8.5 9 9.2835 9 10.25V10.25C9 11.2165 9.7835 12 10.75 12H13.25C14.2165 12 15 12.7835 15 13.75V13.75C15 14.7165 14.2165 15.5 13.25 15.5H10.412C9.8913 15.5 9.39114 15.2969 9.01782 14.934L9 14.9167"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M12 8L12 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M12 17V16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+
+                        </div>
+
+                        <!-- amount  -->
+
+                        <h1 class="text-white font-black lg:text-lg">₹ ${transaction.amount}</h1>
+
+                    </div>
+
+                    <!-- date and time  -->
+
+                    <div class="grid place-items-end text-slate-500 text-xs lg:text-lg">
+
+                        <!-- time -->
+
+                        <p>${transaction.dateTime.time}</p>
+
+                        <!-- date -->
+
+                        <p>${transaction.dateTime.date}</p>
+
+
+
+                    </div>
+
+            </div>
+            `;
+
+            document.querySelector('.transactions-container').appendChild(newTransaction);
+
+        });
+
+
+    }
 
 }
 
